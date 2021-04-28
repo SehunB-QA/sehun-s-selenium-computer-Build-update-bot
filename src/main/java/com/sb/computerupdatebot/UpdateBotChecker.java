@@ -58,7 +58,7 @@ public class UpdateBotChecker {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 		dateFormat.format(date);
 		
-		if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("9:00") ) && dateFormat.parse(dateFormat.format(date)).before(dateFormat.parse("17:00")))
+		if(dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("9:00") ) && dateFormat.parse(dateFormat.format(date)).before(dateFormat.parse("5:00pm")))
 		{
 		Timer timer = new Timer();
        
@@ -77,14 +77,15 @@ public class UpdateBotChecker {
        timer.schedule(updateBotTask,0l,  7200000); //3 Hours 10800000, 2 Hours 7200000
 		}
 		
-		else if (dateFormat.parse(dateFormat.format(date)).equals(dateFormat.parse("17:00")))
-				{
-			    System.out.println("It's now past 5:00pm!");
-			    timerFunction();
-			    // Exit();			
-				}
-		//Check time is before 9:00 AM (Company opens at 9AM)
-		if (dateFormat.parse(dateFormat.format(date)).before(dateFormat.parse("9:00"))) {
+//		 if (dateFormat.parse(dateFormat.format(date)).equals(dateFormat.parse("17:00")))
+//				{
+//			    System.out.println("It's now past 5:00pm!");
+//			    timerFunction();
+//			    // Exit();			
+//				}
+		
+		//Check time is before 9:00 AM (Company opens at 9AM) OR after 5PM
+		if (dateFormat.parse(dateFormat.format(date)).before(dateFormat.parse("9:00")) ||  dateFormat.parse(dateFormat.format(date)).after(dateFormat.parse("5:00pm"))) {
 			
 			System.out.println("It's not time yet!");
 			
@@ -98,7 +99,7 @@ public class UpdateBotChecker {
 				public void run() 
 				{
 					try {
-						// Invoke functiom again to repeat the process time check 
+						// Invoke function again to repeat the process time check 
 						timerFunction();
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
@@ -106,7 +107,7 @@ public class UpdateBotChecker {
 					}
 				}
 			};
-			timer.schedule(CheckTimeTask,7200000,  7200000); // 600000  - 10 mintues 
+			timer.schedule(CheckTimeTask,600000,  600000); // 600000  - 10 Minutes 
 			
 			
 		}
@@ -137,15 +138,12 @@ public class UpdateBotChecker {
 		passwordBox.click();
 		passwordBox.sendKeys("");
 		
-		//TODO: Add better option of a wait // change to a better wait solution 
 		
-		// Sleep to manually perform Captcha 
 		Thread.sleep(90000);
-		
 		System.out.println("Thread resumed");
 		
 		
-		WebElement loginBox = driver.findElement(By.xpath(""));
+		WebElement loginBox = driver.findElement(By.xpath("));
 	    loginBox.click();
 	}
 	
@@ -195,8 +193,8 @@ public class UpdateBotChecker {
 		String curentDateAndTime = formatter.format(date);
 		
 		// email address 
-		String toEmail = "example@example.com";
-		String fromEmail = "example@example.com";
+		String toEmail = "example@examplemail.com";
+		String fromEmail = "****";
 		
 		String host = "smtp.gmail.com";
 		
@@ -216,7 +214,7 @@ public class UpdateBotChecker {
 		{
 			protected PasswordAuthentication getPasswordAuthentication()
 			{
-				return new PasswordAuthentication("example@example.com", "*********");
+				return new PasswordAuthentication("example@examplemail.com", "*****");
 			}
 		});
 
@@ -245,7 +243,7 @@ public class UpdateBotChecker {
             Transport.send(message);
             System.out.println("Sent message successfully....");
             numOfEmailsCounter++;
-            System.out.println("The total number of emails that have been sent is:" + numOfEmailsCounter);
+            System.out.println("The total number of emails that have been sent is: " + numOfEmailsCounter);
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
