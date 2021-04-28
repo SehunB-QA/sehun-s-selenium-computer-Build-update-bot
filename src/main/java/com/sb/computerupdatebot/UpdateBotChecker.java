@@ -138,6 +138,8 @@ public class UpdateBotChecker {
 		passwordBox.sendKeys("");
 		
 		//TODO: Add better option of a wait // change to a better wait solution 
+		
+		// Sleep to manually perform Captcha 
 		Thread.sleep(90000);
 		
 		System.out.println("Thread resumed");
